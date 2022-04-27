@@ -1,14 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Dimensions } from 'react-native';
-import * as Location from 'expo-location';
+// import * as Location from 'expo-location';
 const {width} = Dimensions.get("window")
 
 export default function App() {
   const [location, setLocation] = useState(null);
   const [ok,setOk] = useState(true);
   const ask = async() =>{
-    
+    // const permission = await Location.requestForegroundPermissionsAsync();
+    // console.log(permission)
   }
   useEffect(()=>{
     ask();
