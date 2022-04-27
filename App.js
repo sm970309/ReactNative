@@ -1,15 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Dimensions } from 'react-native';
-// import * as Location from 'expo-location';
+import * as Location from "expo-location";
 const {width} = Dimensions.get("window")
 
 export default function App() {
+  const [region,setRegion] = useState("Loading...");
   const [location, setLocation] = useState(null);
   const [ok,setOk] = useState(true);
   const ask = async() =>{
-    // const permission = await Location.requestForegroundPermissionsAsync();
-    // console.log(permission)
+    const {granted} = await Location.requestForegroundPermissionsAsync();
+    if (!granted){
+      setOk(false);
+    }
+    const {coords:{latitude,longitude}} = await Location.getCurrentPositionAsync({accuracy:5})
+    const loc = await Location.reverseGeocodeAsync({latitude:latitude,longitude,longitude},{useGoogleMaps:false})
+    setRegion(loc[0].region)
   }
   useEffect(()=>{
     ask();
@@ -18,7 +24,7 @@ export default function App() {
     <View style={style.container}>
       <StatusBar style='light'> </StatusBar>
       <View style={style.city}>
-        <Text style={style.cityName}>SEOUL</Text>
+        <Text style={style.cityName}>{region}</Text>
       </View>
       <ScrollView
         pagingEnabled
