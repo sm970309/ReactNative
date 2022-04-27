@@ -1,9 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View, Dimensions } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Location from "expo-location";
+
 const {width} = Dimensions.get("window")
 const API_KEY = '3b4df97acff4c36bc34508cdc46a8704'
+const icon ={
+  "Clouds":"md-cloudy-outline",
+  "Clear":"md-sunny-outline",
+  "Rain":"rainy-outline"
+}
+
+
 export default function App() {
   const [region,setRegion] = useState("Loading...");
   const [days, setDays] = useState([]);
@@ -41,7 +50,7 @@ export default function App() {
         </View>):(
           days.map((day,index) => (
         <View key = {index} style={style.day}>
-        <Text style={style.description}>{day.weather[0].icon}</Text>
+        <Ionicons style={{marginLeft:20}} name={icon[day.weather[0].main]} size={36} color="white" />
         <Text style={style.temp}>{parseFloat(day.temp.day).toFixed(1)}º</Text>
         <Text style={style.main}>{day.weather[0].main}</Text>
         <Text style={style.description}>{day.weather[0].description}</Text>
