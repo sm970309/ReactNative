@@ -1,9 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Dimensions } from 'react-native';
-
-const { height, width } = Dimensions.get("window")
+import * as Location from 'expo-location';
+const {width} = Dimensions.get("window")
 
 export default function App() {
+  const [location, setLocation] = useState(null);
+  const [ok,setOk] = useState(true);
+  const ask = async() =>{
+    
+  }
+  useEffect(()=>{
+    ask();
+  },[])
   return (
     <View style={style.container}>
       <StatusBar style='light'> </StatusBar>
